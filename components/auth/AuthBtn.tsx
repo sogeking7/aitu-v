@@ -1,5 +1,5 @@
 import { IconChevronDown, IconLogout, IconUser } from '@tabler/icons';
-import { ActionIcon, Avatar, Flex, Loader, Menu, Text } from '@mantine/core';
+import { ActionIcon, Anchor, Avatar, Flex, Loader, Menu, Text } from '@mantine/core';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import Image from 'next/image';
@@ -46,10 +46,10 @@ export const AuthBtn = () => {
       shadow="md"
       styles={(theme) => ({
         item: {
-          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
           '&:hover': {
             color: theme.white,
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blue[6],
+            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.blue[6],
           },
         },
       })}
@@ -57,13 +57,13 @@ export const AuthBtn = () => {
     >
       <Menu.Target>
         <Flex align="center" gap={5} className="hover:cursor-pointer">
-          <Text color="blue">
+          <Anchor underline={false}>
             {userName}
-          </Text>
-            <Image src={userImage} alt={userName} width={28} height={28} className="rounded-full" />
-          <Text color="blue">
+          </Anchor>
+          <Image src={userImage} alt={userName} width={28} height={28} className="rounded-full" />
+          <Anchor>
             <IconChevronDown size={20} />
-          </Text>
+          </Anchor>
         </Flex>
       </Menu.Target>
 
