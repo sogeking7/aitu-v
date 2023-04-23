@@ -1,31 +1,37 @@
-import {IconChevronDown, IconLogout, IconUser} from '@tabler/icons'
-import {ActionIcon, Avatar, Flex, Loader, Menu, Text} from '@mantine/core';
-import {signIn, signOut, useSession} from "next-auth/react";
-import React from "react";
-import {useRouter} from "next/router";
+import { IconChevronDown, IconLogout, IconUser } from '@tabler/icons';
+import { ActionIcon, Avatar, Flex, Loader, Menu, Text } from '@mantine/core';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import React from 'react';
+import Image from 'next/image';
 
-const AuthBtn = () => {
-  const router = useRouter();
+type UserType = {
+  image: string;
+  id: number;
+  name: string;
+  email: string;
+};
 
-  const {data: session, status} = useSession();
+export const AuthBtn = () => {
+  // eslint-disable-next-line max-len
+  const { data: { user }, status } = useSession() as unknown as { data: { user: UserType }, status: string };
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Flex w={50} direction="column" justify="center" align="center" className="cursor-pointer">
         <Flex h={28} w={28} justify="center" align="center">
-          <Loader size="xs"/>
+          <Loader size="xs" />
         </Flex>
         <Text size={12}>Loading</Text>
       </Flex>
     );
   }
-  if (status === "unauthenticated") {
+  if (status === 'unauthenticated') {
     return (
       <>
-        <Flex align="center" onClick={signIn} direction="column" w={50} className="cursor-pointer">
+        <Flex align="center" onClick={() => signIn} direction="column" w={50} className="cursor-pointer">
           <ActionIcon
             size="md"
-            color='dark'
+            color="dark"
             variant="transparent"
           >
             <Avatar
@@ -45,20 +51,20 @@ const AuthBtn = () => {
       styles={(theme) => ({
         item: {
           backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-          "&:hover": {
+          '&:hover': {
             color: theme.white,
             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blue[6],
           },
-        }
+        },
       })}
 
     >
       <Menu.Target>
-        <Flex align="center" gap={5}  className="hover:cursor-pointer">
+        <Flex align="center" gap={5} className="hover:cursor-pointer">
           <Text color="blue">
-            {session.user.name}
+            {user.name}
           </Text>
-          <img src={session.user.image} alt={session.user.name} width={28} height={28} className="rounded-full"/>
+            <Image src={user.image} alt={user.name} width={28} height={28} className="rounded-full" />
           <Text color="blue">
             <IconChevronDown size={20} />
           </Text>
@@ -67,16 +73,17 @@ const AuthBtn = () => {
 
       <Menu.Dropdown>
         <Menu.Item
-          icon={<IconUser size={14}/>}
+          icon={<IconUser size={14} />}
           component="a"
-          href="https://mantine.dev">
+          href="https://mantine.dev"
+        >
           Profile
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          icon={<IconLogout size={14}/>}
+          icon={<IconLogout size={14} />}
           component="a"
-          onClick={() => signOut()}
+          onClick={() => signOut}
         >
           Log out
         </Menu.Item>
@@ -85,4 +92,3 @@ const AuthBtn = () => {
 
   );
 };
-export default AuthBtn;
