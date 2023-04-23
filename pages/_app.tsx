@@ -26,7 +26,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       </Head>
       <SessionProvider session={session}>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+          <MantineProvider
+            theme={{
+                colorScheme,
+                fontFamily: 'Inter, sans-serif',
+              }}
+            withGlobalStyles
+            withNormalizeCSS
+          >
             <Component {...pageProps} />
             <Notifications />
           </MantineProvider>
