@@ -4,16 +4,12 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import Image from 'next/image';
 
-type UserType = {
-  image: string;
-  id: number;
-  name: string;
-  email: string;
-};
-
 export const AuthBtn = () => {
   // eslint-disable-next-line max-len
-  const { data: { user }, status } = useSession() as unknown as { data: { user: UserType }, status: string };
+  const { data: session, status } = useSession();
+
+  const userName = session?.user?.name ?? 'Unknown';
+  const userImage = session?.user?.image ?? 'unknown';
 
   if (status === 'loading') {
     return (
@@ -62,9 +58,9 @@ export const AuthBtn = () => {
       <Menu.Target>
         <Flex align="center" gap={5} className="hover:cursor-pointer">
           <Text color="blue">
-            {user.name}
+            {userName}
           </Text>
-            <Image src={user.image} alt={user.name} width={28} height={28} className="rounded-full" />
+            <Image src={userImage} alt={userName} width={28} height={28} className="rounded-full" />
           <Text color="blue">
             <IconChevronDown size={20} />
           </Text>
