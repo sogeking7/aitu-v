@@ -24,7 +24,7 @@ export const AuthBtn = () => {
   if (status === 'unauthenticated') {
     return (
       <>
-        <Flex align="center" onClick={() => signIn} direction="column" w={50} className="cursor-pointer">
+        <Flex align="center" onClick={() => signIn()} direction="column" w={50} className="cursor-pointer">
           <ActionIcon
             size="md"
             color="dark"
@@ -79,7 +79,7 @@ export const AuthBtn = () => {
         <Menu.Item
           icon={<IconLogout size={14} />}
           component="a"
-          onClick={() => signOut}
+          onClick={() => signOut()}
         >
           Log out
         </Menu.Item>
