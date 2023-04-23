@@ -9,7 +9,7 @@ export const MainHeader = () => {
       <Container size="lg" className="w-full flex justify-between items-center">
         <Flex gap="lg" align="center">
           <Logo />
-          <Link href="/team" passHref>
+          <Link href="/index" passHref>
             <Text color="dimmed" className="cursor-pointer">Team</Text>
           </Link>
         </Flex>
